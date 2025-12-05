@@ -1,13 +1,17 @@
-# 使用輕量版 Nginx
+# 用輕量版 Nginx
 FROM nginx:alpine
 
-# 刪掉預設網頁
-RUN rm -rf /usr/share/nginx/html/*
+# 刪掉預設頁面與預設設定
+RUN rm -rf /usr/share/nginx/html/* \
+    && rm /etc/nginx/conf.d/default.conf
 
-# 把目前資料夾的檔案複製進去
+# 放入我們自己的設定，讓 Nginx 聽 8080 port
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# 把靜態檔案複製進去
 COPY . /usr/share/nginx/html
 
-# Nginx 預設對外是 80 port
-EXPOSE 80
+# 告訴外界這個容器用 8080
+EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
