@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Ding88 Live Christmas Concert｜台中議場</title>
+
+  <!-- 社群分享（可依需求修改） -->
+  <meta property="og:title" content="Ding88 Live Christmas Concert" />
+  <meta property="og:description" content="在台中議場，與大夥一起，用音樂點亮你的聖誕之夜。Light your Christmas Fire." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://your-domain.com/images/poster.jpg" />
+  <meta property="og:locale" content="zh_TW" />
+
+  <style>
+    :root {
+      --bg: #130c07;
+      --card-bg: #1b120b;
+      --accent: #d3a04a;
+      --accent-soft: #f0c56a;
+      --text: #f6e7c8;
+      --text-muted: #c0a87c;
+      --border: #3a2815;
+      --max-width: 860px;      /* 略縮窄，較貼合 Accupass 中央版心 */
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --shadow-light: 0 0 40px rgba(211, 160, 74, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC",
+        "Microsoft JhengHei", sans-serif;
+      background: radial-gradient(circle at top, #22140a 0, #0b0704 45%, #050302 100%);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--accent-soft);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 48px;
+    }
+
+    /* Banner：縮小一半寬度，改放在中段 */
+    .banner {
+      width: 100%;
+      max-width: 600px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      margin: 10px auto 26px;
+    }
+
+    .banner img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .card {
+      width: 100%;
+      max-width: var(--max-width);
+      background: radial-gradient(circle at top, #23160b 0, #170e08 60%, #0c0704 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      padding: 24px 22px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 120% -20%, rgba(240, 197, 106, 0.12) 0, transparent 55%),
+        radial-gradient(circle at -10% 110%, rgba(240, 197, 106, 0.1) 0, transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 28px;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: clamp(24px, 3.6vw, 32px);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    .title-block h2 {
+      margin: 6px 0 0;
+      font-size: 19px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .tagline {
+      font-size: 13px;
+      color: var(--accent-soft);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px 20px;
+      margin: 20px 0 4px;
+      padding: 16px 18px;
+      background: rgba(0, 0, 0, 0.32);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .meta-item-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .meta-item-value {
+      font-size: 15px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .section {
+      margin-top: 22px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      color: var(--accent-soft);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 18px;
+      height: 1px;
+      background: var(--accent-soft);
+      opacity: 0.7;
+    }
+
+    .section p {
+      margin: 0 0 10px;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .section ul {
+      padding-left: 20px;
+      margin: 4px 0 10px;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .section li + li {
+      margin-top: 4px;
+    }
+
+    .highlight {
+      color: var(--accent-soft);
+      font-weight: 500;
+    }
+
+    .cta-block {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(243, 211, 142, 0.65);
+      background: linear-gradient(135deg, #f0c56a 0, #d8993d 40%, #c87c2a 100%);
+      color: #2a1705;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: var(--shadow-light);
+      cursor: pointer;
+      transition: transform 0.13s ease, box-shadow 0.13s ease, filter 0.13s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 0 26px rgba(240, 197, 106, 0.55);
+      text-decoration: none;
+    }
+
+    .cta-note {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .poster {
+      margin-top: 26px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Poster 放大：桌機較大、手機幾乎滿版 */
+    .poster img {
+      max-width: 420px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* 金色分隔線 */
+    .section-divider {
+      border: 0;
+      height: 1px;
+      margin: 22px 0 18px;
+      background: linear-gradient(to right,
+        transparent,
+        rgba(240, 197, 106, 0.85),
+        transparent
+      );
+      opacity: 0.9;
+    }
+
+    footer {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-top: 24px;
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    @media (max-width: 720px) {
+      .card {
+        padding: 20px 14px 26px;
+      }
+
+      .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .title-block h1 {
+        font-size: 22px;
+      }
+
+      .title-block h2 {
+        font-size: 17px;
+      }
+
+      .tagline {
+        font-size: 12px;
+        letter-spacing: 0.2em;
+      }
+
+      .meta-grid {
+        padding: 14px 14px;
+      }
+
+      .section p,
+      .section ul {
+        font-size: 14px;
+      }
+
+      .cta-block {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .poster {
+        justify-content: center;
+      }
+
+      .poster img {
+        max-width: 100%;  /* 手機幾乎滿版 */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding-top: 18px;
+      }
+
+      .banner {
+        margin-bottom: 18px;
+      }
+
+      .card {
+        padding: 18px 12px 24px;
+      }
+    }
+ 
+    
+.silent-image {
+  margin: 16px 0 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.silent-image img {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <article class="card">
+
+      <header class="card-header">
+        <div class="title-block">
+          <h1>Ding88 Live Christmas Concert</h1>
+          <h2>鼎鼎的聖誕演奏之夜</h2>
+          <div class="tagline">LIGHT YOUR CHRISTMAS FIRE</div>
+        </div>
+      </header>
+
+      <!-- 中段 Banner -->
+      <div class="banner">
+        <img src="images/banner.jpg" alt="Ding88 Live Christmas Concert Banner" />
+      </div>
+
+      <!-- 分隔線：上半部文字與資訊表之間 -->
+      <hr class="section-divider" />
+
+      <!-- 活動基本資訊 -->
+      <section class="meta-grid" aria-label="活動資訊">
+        <div>
+          <div class="meta-item-label">DATE &amp; TIME</div>
+          <div class="meta-item-value">
+            2025 / 12 / 27（六）<br>
+            入場 19:30，<span class="highlight">20:00 準時開演</span>
+          </div>
+        </div>
+        <div>
+          <div class="meta-item-label">VENUE</div>
+          <div class="meta-item-value">
+            台中議場 Taichung Assembly<br>
+            <span class="highlight">（私人招待所・日系美食酒吧）</span>
+          </div>
+        </div>
+        <div>
+          <div class="meta-item-label">STYLE</div>
+          <div class="meta-item-value">鋼琴演奏・即興</div>
+        </div>
+      </section>
+
+      <!-- 分隔線：資訊表與內文之間 -->
+      <hr class="section-divider" />
+
+      <!-- 關於活動 -->
+      <section class="section">
+        <h3 class="section-title">關於這一夜</h3>
+        <p>
+          聖誕節，不一定只有喧鬧派對。<br>
+          這一晚，我們在 <span class="highlight">台中議場</span> 相聚，讓鋼琴旋律陪伴大家的呼吸，
+          在日系酒吧空間裡，點亮每個人心中的那一小簇火光。
+        </p>
+        <p>
+          藉由聽覺，點起在頭頂升起的火焰——
+          這是對 <span class="highlight">Bhairavi Devi 火能量</span> 的致敬，
+          也是一個邀請：<strong>用聲響，和自己重新對話一次。</strong>
+        </p>
+      </section>
+
+      <!-- 演出內容 -->
+      <section class="section">
+        <h3 class="section-title">演出內容</h3>
+        <p>當晚預計包含：</p>
+        <ul>
+          <li>以鋼琴為主的改編曲目／個人創作</li>
+          <li>即興與「當下感」創作段落</li>
+          <li>短暫的靜心／呼吸引導，讓大家在音樂裡慢慢沉下來</li>
+        </ul>
+        <p>
+          這不只是一場音樂會，而是一個讓身體放鬆、心輕輕亮起的小小儀式。
+        </p>
+      </section>
+
+      <!-- 金色分隔線 -->
+      <hr class="section-divider" />
+
+      <!-- 注意事項：Silent Party -->
+      <section class="section">
+        <h3 class="section-title">注意事項</h3>
+        <p>現場低消飲料 2 杯（一杯自己喝掉一杯請鼎鼎或是心愛的人）</p> 
+        <p>
+          演出中段落將以 <span class="highlight">Silent Party</span> 方式進行，
+          現場透過專用 Wi-Fi 傳送即時音訊，讓每位觀眾在自己的耳機中，
+          聽見最貼近現場、最乾淨細膩的聲音。
+        </p>
+      
+        <p>為了獲得最佳聆聽體驗，請務必準備：</p>
+        <ul>
+          <li>充飽電的 <span class="highlight">智慧型手機</span>（一人一機）</li>
+          <li><span class="highlight">音質良好的耳機</span>（有線／無線皆可）</li>
+        </ul>
+      
+        <p>
+          我們將使用 <span class="highlight">SonoBus</span> 作為 Silent Party 聲音串流工具。  
+          為節省入場時的設定時間，<strong>建議您提前在手機下載好：</strong>
+        </p>
+      
+        <ul>
+          <li>
+            📱 <strong>iPhone（App Store）</strong>：<br>
+            <a href="https://apps.apple.com/us/app/sonobus/id1527990033" target="_blank">
+              https://apps.apple.com/us/app/sonobus/id1527990033
+            </a>
+          </li>
+      
+          <li>
+            🤖 <strong>Android（Google Play）</strong>：<br>
+            <a href="https://play.google.com/store/apps/details?id=com.sonobus.sonobus" target="_blank">
+              https://play.google.com/store/apps/details?id=com.sonobus.sonobus
+            </a>
+          </li>
+        </ul>
+      
+        <p>
+          入場後，只需依照工作人員指示連上指定 Wi-Fi，  
+          並由我們協助完成 SonoBus 的連線，即可開始在耳機裡聽見你的聖誕 Live。
+        </p>
+      
+        <div class="silent-image">
+          <img src="images/silent.jpg" alt="Silent Party 裝置示意：手機與耳機" />
+        </div>
+      </section>
+
+      <!-- 分隔線：注意事項與報名 CTA 之間 -->
+      <hr class="section-divider" />
+
+      <!-- 參與方式 -->
+      <section class="section">
+        <h3 class="section-title">報名與參與方式</h3>
+        <p>
+          本場活動採 <span class="highlight">Accupass 線上報名</span>。<br>
+          報名成功後，將收到電子票券與入場資訊，當日請出示 QRcode 完成報到。
+        </p>
+        <p>
+          座位數有限，建議事先完成報名，以免向隅。若你願意，也可以帶著
+          一兩位朋友，一起來度過一個安靜但不無聊的聖誕夜。
+        </p>
+      </section>
+
+      <!-- CTA區塊：記得把連結改成你的 Accupass 活動網址 -->
+      <section class="cta-block">
+        <a class="btn-primary" href="https://www.accupass.com/event/2512050559422629427800" target="_blank" rel="noopener">
+          前往 Accupass 報名
+        </a>
+        <div class="cta-note">
+          建議提前 10–15 分鐘入場，讓自己有時間坐下、靜心、準備好迎接這一夜。
+        </div>
+      </section>
+
+      <!-- 海報 -->
+      <section class="poster" aria-label="活動海報">
+        <img src="images/poster.jpg" alt="Ding88 Live Christmas Concert 海報" />
+      </section>
+
+    </article>
+
+    <footer>
+      <div>© Ding88 Live Christmas Concert</div>
+      <div>Design &amp; concept inspired by Devi’s blessings.</div>
+    </footer>
+
+  </main>
+</body>
+</html>
