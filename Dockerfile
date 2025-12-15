@@ -1,17 +1,17 @@
-# 用輕量版 Nginx
-FROM nginx:alpine
+FROM python:3.11-slim
 
-# 刪掉預設頁面與預設設定
-RUN rm -rf /usr/share/nginx/html/* \
-    && rm /etc/nginx/conf.d/default.conf
+# 設定工作目錄
+WORKDIR /app
 
-# 放入我們自己的設定，讓 Nginx 聽 8080 port
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# 複製專案檔案
+COPY . .
 
-# 把靜態檔案複製進去
-COPY . /usr/share/nginx/html
+# 環境變數
+ENV PYTHONUNBUFFERED=1
+ENV PORT=8080
 
-# 告訴外界這個容器用 8080
+# 對外開放的 Port（實際仍以 Zeabur 注入的 PORT 為準）
 EXPOSE 8080
 
-CMD ["nginx", "-g", "daemon off;"]
+# 啟動你的後端（同時負責前端 + API + admin）
+CMD ["python", "app.py"]

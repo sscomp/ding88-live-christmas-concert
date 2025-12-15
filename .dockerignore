@@ -1,4 +1,16 @@
-.git
+# Git / 系統檔
+.git/
 .gitignore
-Dockerfile
-*.md
+.DS_Store
+__MACOSX/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# SQLite 暫存檔
+*.db-journal
+
+# 不需要進 image 的檔案
+node_modules/
+.env
