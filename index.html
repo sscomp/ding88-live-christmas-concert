@@ -255,6 +255,77 @@
       box-shadow: var(--shadow-soft);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 12px 12px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.28);
+    }
+
+    .form-field span {
+      font-size: 14px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .form-field input,
+    .form-field select {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .form-field input:focus,
+    .form-field select:focus {
+      border-color: rgba(240, 197, 106, 0.65);
+      box-shadow: 0 0 0 3px rgba(240, 197, 106, 0.18);
+    }
+
+    .form-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .status {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.2);
+      color: var(--text);
+      min-height: 18px;
+    }
+
+    .status.success {
+      border-color: rgba(240, 197, 106, 0.6);
+      background: rgba(240, 197, 106, 0.1);
+      color: var(--accent-soft);
+    }
+
+    .status.error {
+      border-color: rgba(255, 102, 102, 0.7);
+      background: rgba(255, 102, 102, 0.08);
+      color: #ffb3b3;
+    }
 
     /* 金色分隔線 */
     .section-divider {
@@ -485,27 +556,37 @@
       <!-- 分隔線：注意事項與報名 CTA 之間 -->
       <hr class="section-divider" />
 
-      <!-- 參與方式 -->
-      <section class="section">
-        <h3 class="section-title">報名與參與方式</h3>
-        <p>
-          本場活動採 <span class="highlight">Accupass 線上報名</span>。<br>
-          報名成功後，將收到電子票券與入場資訊，當日請出示 QRcode 完成報到。
-        </p>
-        <p>
-          座位數有限，建議事先完成報名，以免向隅。若你願意，也可以帶著
-          一兩位朋友，一起來度過一個安靜但不無聊的聖誕夜。
-        </p>
-      </section>
-
-      <!-- CTA區塊：記得把連結改成你的 Accupass 活動網址 -->
-      <section class="cta-block">
-        <a class="btn-primary" href="https://www.accupass.com/event/2512050559422629427800" target="_blank" rel="noopener">
-          前往 Accupass 報名
-        </a>
-        <div class="cta-note">
-          建議提前 10–15 分鐘入場，讓自己有時間坐下、靜心、準備好迎接這一夜。
+      <!-- 報名表單 -->
+      <section class="section" id="signup">
+        <h3 class="section-title">立即索票</h3>
+        <div class="form-grid">
+          <label class="form-field">
+            <span>參加人姓名 *</span>
+            <input type="text" name="attendee_name" required placeholder="王小明" />
+          </label>
+          <label class="form-field">
+            <span>參加人 Email *</span>
+            <input type="email" name="attendee_email" required placeholder="example@email.com" />
+          </label>
+          <label class="form-field">
+            <span>參加人電話 *</span>
+            <input type="tel" name="attendee_phone" required placeholder="09xx-xxx-xxx" />
+          </label>
+          <label class="form-field">
+            <span>票種 *</span>
+            <select name="ticket_type">
+              <option value="免費票 0 元">免費票 0 元（固定）</option>
+            </select>
+          </label>
+          <label class="form-field">
+            <span>出生年月日 *</span>
+            <input type="date" name="birth_date" required />
+          </label>
         </div>
+        <div class="form-actions">
+          <button class="btn-primary" id="submit-btn">送出索票</button>
+        </div>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
       </section>
 
       <!-- 海報 -->
@@ -521,5 +602,63 @@
     </footer>
 
   </main>
+  <script>
+    (function () {
+      const formSection = document.getElementById("signup");
+      const statusEl = document.getElementById("status");
+      const submitBtn = document.getElementById("submit-btn");
+      if (!formSection || !statusEl || !submitBtn) return;
+
+      const fields = {
+        attendee_name: formSection.querySelector('input[name="attendee_name"]'),
+        attendee_email: formSection.querySelector('input[name="attendee_email"]'),
+        attendee_phone: formSection.querySelector('input[name="attendee_phone"]'),
+        ticket_type: formSection.querySelector('select[name="ticket_type"]'),
+        birth_date: formSection.querySelector('input[name="birth_date"]')
+      };
+
+      function setStatus(message, type = "") {
+        statusEl.textContent = message;
+        statusEl.classList.remove("success", "error");
+        if (type) statusEl.classList.add(type);
+      }
+
+      submitBtn.addEventListener("click", async (event) => {
+        event.preventDefault();
+        setStatus("送出中...");
+        submitBtn.disabled = true;
+
+        const payload = {
+          attendee_name: fields.attendee_name.value.trim(),
+          attendee_email: fields.attendee_email.value.trim(),
+          attendee_phone: fields.attendee_phone.value.trim(),
+          ticket_type: fields.ticket_type.value,
+          birth_date: fields.birth_date.value
+        };
+
+        try {
+          const res = await fetch("/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          const data = await res.json();
+          if (!res.ok || !data.ok) {
+            throw new Error(data.error || "報名失敗，請稍後再試。");
+          }
+          setStatus(`報名成功！您的票號：${data.ticket_number}`, "success");
+          Object.values(fields).forEach((el) => {
+            if (el.tagName === "SELECT") return;
+            el.value = "";
+          });
+          fields.ticket_type.value = "免費票 0 元";
+        } catch (err) {
+          setStatus(err.message || "無法送出，請稍後再試。", "error");
+        } finally {
+          submitBtn.disabled = false;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
